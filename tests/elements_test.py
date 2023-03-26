@@ -7,7 +7,6 @@ class TestElements:
         def test_text_box(self, driver):
             text_box_page = TextBoxPage(driver, 'https://demoqa.com/text-box')
             text_box_page.open()
-            text_box_page.fill_all_fields()
-            input_data = text_box_page.check_filled_form()
+            input_data = text_box_page.fill_all_fields()
             output_data = text_box_page.check_filled_form()
             assert input_data == output_data, 'Введенные данные и данные из таблицы не совпадают'
