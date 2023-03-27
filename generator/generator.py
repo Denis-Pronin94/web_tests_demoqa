@@ -1,4 +1,5 @@
 from data.data import Person
+
 from faker import Faker
 
 
@@ -7,6 +8,7 @@ Faker.seed()
 
 
 def generated_person():
+    """Генерация данных."""
     yield Person(
         full_name=faker_ru.first_name() + '' + faker_ru.last_name() + '' + faker_ru.middle_name(),
         email=faker_ru.email(),
