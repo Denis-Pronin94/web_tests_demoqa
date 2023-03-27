@@ -27,3 +27,6 @@ class TestElements:
             input_check_box = check_box_page.get_checked_checkbox()
             output_result = check_box_page.get_output_result()
             assert input_check_box == output_result, 'check_box не были установлены'
+
+
+
