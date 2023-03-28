@@ -1,3 +1,4 @@
+from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait as wait
 
@@ -5,7 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait as wait
 class BasePage:
     """Базовый Page."""
 
-    def __init__(self, driver, url: str):
+    def __init__(self, driver: webdriver, url: str):
         """Базовый driver и url."""
         self.driver = driver
         self.url = url

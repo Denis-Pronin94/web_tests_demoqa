@@ -1,13 +1,17 @@
-from pages.elements_page import CheckBoxPage, TextBoxPage
+from pages.elements_page import CheckBoxPage, RadioButtonPage, TextBoxPage
+
+import pytest
+
+from selenium import webdriver
 
 
 class TestElements:
     """Сьют - TestElements."""
 
     class TestTextBox:
-        """Тест - text_box."""
+        """Тест - TestTextBox."""
 
-        def test_text_box(self, driver: str):
+        def test_text_box(self, driver: webdriver):
             """Тест - text_box."""
             text_box_page = TextBoxPage(driver, 'https://demoqa.com/text-box')
             text_box_page.open()
@@ -16,9 +20,9 @@ class TestElements:
             assert input_data == output_data, 'Введенные данные и данные из таблицы не совпадают'
 
     class TestCheckBox:
-        """Тест - check_box."""
+        """Тест - TestCheckBox."""
 
-        def test_check_box(self, driver: str):
+        def test_check_box(self, driver: webdriver):
             """Тест - check_box."""
             check_box_page = CheckBoxPage(driver, 'https://demoqa.com/checkbox')
             check_box_page.open()
@@ -28,5 +32,20 @@ class TestElements:
             output_result = check_box_page.get_output_result()
             assert input_check_box == output_result, 'check_box не были установлены'
 
+    class TestRadioButton:
+        """Тест - TestRadioButton."""
 
-
+        @pytest.mark.skip(reason='Баг - радиокнопка "No" не кликается')
+        def test_radio_button(self, driver: webdriver):
+            """Тест -test_radio_button."""
+            radio_button_page = RadioButtonPage(driver, 'https://demoqa.com/radio-button')
+            radio_button_page.open()
+            radio_button_page.click_radio_button('yes')
+            output_yes = radio_button_page.get_output_result()
+            radio_button_page.click_radio_button('impressive')
+            output_impressive = radio_button_page.get_output_result()
+            radio_button_page.click_radio_button('no')
+            output_no = radio_button_page.get_output_result()
+            assert output_yes == 'Yes'
+            assert output_impressive == 'Impressive'
+            assert output_no == 'No'

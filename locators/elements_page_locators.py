@@ -17,7 +17,7 @@ class TextBoxPageLocators:
 
 
 class CheckBoxPageLocators:
-    """Локаторы для теста TestCheckBox."""
+    """Локаторы для теста TestRadioButton."""
 
     EXPAND_ALL_BUTTON = (By.XPATH, '//button[@aria-label="Expand all"]')
     ITEM_LIST = (By.XPATH, '//span[@class="rct-title"]')
@@ -25,4 +25,16 @@ class CheckBoxPageLocators:
         By.XPATH, '//span[@class="rct-checkbox"]//*[@class="rct-icon rct-icon-check"]',
     )
     TITLE_ITEM = ".//ancestor::span[@class='rct-text']"
+    OUTPUT_RESULT = (By.XPATH, '//span[@class="text-success"]')
+
+
+class RadioButtonPageLocators:
+    """Локаторы для теста TestCheckBox."""
+
+    YES_RADIO_BUTTON = (By.XPATH, '//label[@class="custom-control-label"][@for="yesRadio"]')
+    IMPRESSIVE_RADIO_BUTTON = (
+        By.XPATH,
+        '//label[@class="custom-control-label"][@for="impressiveRadio"]',
+    )
+    NO_RADIO_BUTTON = (By.XPATH, '//label[@class="custom-control-label disabled"][@for="noRadio"]')
     OUTPUT_RESULT = (By.XPATH, '//span[@class="text-success"]')

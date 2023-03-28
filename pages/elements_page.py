@@ -2,7 +2,11 @@ import random
 
 from generator.generator import generated_person
 
-from locators.elements_page_locators import CheckBoxPageLocators, TextBoxPageLocators
+from locators.elements_page_locators import (
+    CheckBoxPageLocators,
+    RadioButtonPageLocators,
+    TextBoxPageLocators,
+)
 
 from pages.base_page import BasePage
 
@@ -13,7 +17,7 @@ class TextBoxPage(BasePage):
     locators = TextBoxPageLocators()
 
     def fill_all_fields(self) -> tuple:
-        """Fill_all_fields."""
+        """Заполняем все поля."""
         person_info = next(generated_person())
         full_name = person_info.full_name
         email = person_info.email
@@ -28,7 +32,7 @@ class TextBoxPage(BasePage):
         return full_name, email, current_address, permanent_address
 
     def check_filled_form(self) -> tuple:
-        """Check_filled_form."""
+        """Проверяем заполненную форму."""
         full_name = self.element_is_present(
             self.locators.CREATED_FULL_NAME,
         ).text.split(':')[1]
@@ -50,11 +54,11 @@ class CheckBoxPage(BasePage):
     locators = CheckBoxPageLocators()
 
     def open_full_list(self):
-        """Open_full_list."""
+        """Открываем весь список."""
         self.element_is_visible(self.locators.EXPAND_ALL_BUTTON).click()
 
     def click_random_check_box(self):
-        """Click_random_check_box."""
+        """Кликаем на рандомные чек-боксы."""
         item_list = self.elements_are_visible(self.locators.ITEM_LIST)
         count = 21
         while count != 0:
@@ -67,7 +71,7 @@ class CheckBoxPage(BasePage):
                 break
 
     def get_checked_checkbox(self) -> str:
-        """Get_checked_checkbox."""
+        """Получаем чек-бокс."""
         checked_list = self.elements_are_present(self.locators.CHECKED_ITEMS)
         data = []
         for box in checked_list:
@@ -76,9 +80,28 @@ class CheckBoxPage(BasePage):
         return str(data).replace(' ', '').replace('doc', '').replace('.', '').lower()
 
     def get_output_result(self) -> str:
-        """Get_output_result."""
+        """Получаем результат."""
         result_list = self.elements_are_present(self.locators.OUTPUT_RESULT)
         data = []
         for item in result_list:
             data.append(item.text)
         return str(data).replace(' ', '').lower()
+
+
+class RadioButtonPage(BasePage):
+    """RadioButtonPage."""
+
+    locators = RadioButtonPageLocators()
+
+    def click_radio_button(self, choice: dict):
+        """Кликаем на радиокнопки."""
+        choices = {
+            'yes': self.locators.YES_RADIO_BUTTON,
+            'impressive': self.locators.IMPRESSIVE_RADIO_BUTTON,
+            'no': self.locators.NO_RADIO_BUTTON,
+        }
+        self.element_is_visible(choices[choice]).click()
+
+    def get_output_result(self) -> str:
+        """Получаем результат."""
+        return self.element_is_present(self.locators.OUTPUT_RESULT).text
