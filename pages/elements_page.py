@@ -93,7 +93,7 @@ class RadioButtonPage(BasePage):
 
     locators = RadioButtonPageLocators()
 
-    def click_radio_button(self, choice: dict):
+    def click_radio_button(self, choice: str):
         """Кликаем на радиокнопки."""
         choices = {
             'yes': self.locators.YES_RADIO_BUTTON,
