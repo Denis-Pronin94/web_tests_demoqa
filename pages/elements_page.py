@@ -6,6 +6,7 @@ from locators.elements_page_locators import (
     CheckBoxPageLocators,
     RadioButtonPageLocators,
     TextBoxPageLocators,
+    WebTablePageLocators,
 )
 
 from pages.base_page import BasePage
@@ -105,3 +106,49 @@ class RadioButtonPage(BasePage):
     def get_output_result(self) -> str:
         """Получаем результат."""
         return self.element_is_present(self.locators.OUTPUT_RESULT).text
+
+
+class WebTablePage(BasePage):
+    """WebTablePage."""
+
+    locators = WebTablePageLocators()
+
+    def add_new_person(self) -> list:
+        """Добавляем нового персонажа."""
+        count = 1
+        while count != 0:
+            person_info = next(generated_person())
+            first_name = person_info.first_name
+            last_name = person_info.last_name
+            email = person_info.email
+            age = person_info.age
+            salary = person_info.salary
+            department = person_info.department
+            self.element_is_visible(self.locators.ADD_BUTTON).click()
+            self.element_is_visible(self.locators.FIRST_NAME).send_keys(first_name)
+            self.element_is_visible(self.locators.LAST_NAME).send_keys(last_name)
+            self.element_is_visible(self.locators.EMAIL).send_keys(email)
+            self.element_is_visible(self.locators.AGE).send_keys(age)
+            self.element_is_visible(self.locators.SALARY).send_keys(salary)
+            self.element_is_visible(self.locators.DEPARTMENT).send_keys(department)
+            self.element_is_visible(self.locators.SUBMIT).click()
+            count -= 1
+            return [first_name, last_name, str(age), email, str(salary), department]
+
+    def check_new_added_person(self) -> list:
+        """Проверяем нового персонажа в таблице."""
+        people_list = self.elements_are_present(self.locators.FULL_PEOPLE_LIST)
+        data = []
+        for item in people_list:
+            data.append(item.text.splitlines())
+        return data
+
+    def search_some_person(self, key_word: str):
+        """Ищем нового персонажа."""
+        self.element_is_visible(self.locators.SEARCH_WORLD).send_keys(key_word)
+
+    def check_search_person(self) -> str:
+        """Проверяем нового персонажа."""
+        delete_button = self.element_is_present(self.locators.DELETE_BUTTON)
+        row = delete_button.find_element_by_xpath(self.locators.ROW_PARENT)
+        return row.text.splitlines()
