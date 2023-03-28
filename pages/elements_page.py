@@ -1,16 +1,20 @@
 import random
+from http import HTTPStatus
 
 from generator.generator import generated_person
 
 from locators.elements_page_locators import (
     ButtonPageLocators,
     CheckBoxPageLocators,
+    LinksPageLocators,
     RadioButtonPageLocators,
     TextBoxPageLocators,
     WebTablePageLocators,
 )
 
 from pages.base_page import BasePage
+
+import requests
 
 
 class TextBoxPage(BasePage):
@@ -210,3 +214,30 @@ class ButtonsPage(BasePage):
     def check_clicked_on_the_button(self, element: str) -> str:
         """Возвращаем текст."""
         return self.element_is_present(element).text
+
+
+class LinksPage(BasePage):
+    """LinksPage."""
+
+    locators = LinksPageLocators()
+
+    def check_new_tab_simple_link(self) -> tuple:
+        """Возвращаем url."""
+        simple_link = self.element_is_visible(self.locators.SIMPLE_LINK)
+        link_href = simple_link.get_attribute('href')
+        response = requests.get(f'{link_href}')
+        if response.status_code == HTTPStatus.OK:
+            simple_link.click()
+            self.driver.switch_to.window(self.driver.window_handles[1])
+            url = self.driver.current_url
+            return link_href, url
+        else:
+            return link_href, response.status_code
+
+    def check_broken_link(self, url: str) -> int:
+        """Возвращаем status_code."""
+        response = requests.get(url)
+        if response.status_code == HTTPStatus.OK:
+            self.element_is_present(self.locators.BAD_REQEST).click()
+        else:
+            return response.status_code
