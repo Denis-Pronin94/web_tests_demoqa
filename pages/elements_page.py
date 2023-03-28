@@ -125,12 +125,12 @@ class WebTablePage(BasePage):
             salary = person_info.salary
             department = person_info.department
             self.element_is_visible(self.locators.ADD_BUTTON).click()
-            self.element_is_visible(self.locators.FIRST_NAME).send_keys(first_name)
-            self.element_is_visible(self.locators.LAST_NAME).send_keys(last_name)
-            self.element_is_visible(self.locators.EMAIL).send_keys(email)
-            self.element_is_visible(self.locators.AGE).send_keys(age)
-            self.element_is_visible(self.locators.SALARY).send_keys(salary)
-            self.element_is_visible(self.locators.DEPARTMENT).send_keys(department)
+            self.element_is_visible(self.locators.FIRST_NAME_INPUT).send_keys(first_name)
+            self.element_is_visible(self.locators.LAST_NAME_INPUT).send_keys(last_name)
+            self.element_is_visible(self.locators.EMAIL_INPUT).send_keys(email)
+            self.element_is_visible(self.locators.AGE_INPUT).send_keys(age)
+            self.element_is_visible(self.locators.SALARY_INPUT).send_keys(salary)
+            self.element_is_visible(self.locators.DEPARTMENT_INPUT).send_keys(department)
             self.element_is_visible(self.locators.SUBMIT).click()
             count -= 1
             return [first_name, last_name, str(age), email, str(salary), department]
@@ -152,3 +152,38 @@ class WebTablePage(BasePage):
         delete_button = self.element_is_present(self.locators.DELETE_BUTTON)
         row = delete_button.find_element_by_xpath(self.locators.ROW_PARENT)
         return row.text.splitlines()
+
+    def update_person_info(self) -> str:
+        """Обновляем данные персонажа."""
+        person_info = next(generated_person())
+        age = person_info.age
+        self.element_is_visible(self.locators.UPDATE_BUTTON).click()
+        self.element_is_visible(self.locators.AGE_INPUT).clear()
+        self.element_is_visible(self.locators.AGE_INPUT).send_keys(age)
+        self.element_is_visible(self.locators.SUBMIT).click()
+        return str(age)
+
+    def delete_person(self):
+        """Удаляем персонажа."""
+        self.element_is_visible(self.locators.DELETE_BUTTON).click()
+
+    def check_deleted(self) -> str:
+        """Проверяем надпись 'No rows found'."""
+        return self.element_is_present(self.locators.NO_ROWS_FOUND).text
+
+    def select_up_to_some_rows(self) -> list:
+        """Возвращаем массив'."""
+        count = [5, 10, 20, 25, 50, 100]
+        data = []
+        for x in count:
+            count_rows_button = self.element_is_visible(self.locators.COUNT_ROW_LIST)
+            self.go_to_element(count_rows_button)
+            count_rows_button.click()
+            self.element_is_visible(f'//option[@value="{x}"]').click()
+            data.append(self.check_count_rows())
+        return data
+
+    def check_count_rows(self) -> int:
+        """Возвращаем массив всех строк."""
+        list_rows = self.elements_are_present(self.locators.FULL_PEOPLE_LIST)
+        return len(list_rows)

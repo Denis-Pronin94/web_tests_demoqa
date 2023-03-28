@@ -44,12 +44,12 @@ class WebTablePageLocators:
     """Локаторы для теста TestCheckBox."""
 
     ADD_BUTTON = (By.XPATH, '//button[@id="addNewRecordButton"]')
-    FIRST_NAME = (By.XPATH, '//input[@id="firstName"]')
-    LAST_NAME = (By.XPATH, '//input[@id="lastName"]')
-    EMAIL = (By.XPATH, '//input[@id="userEmail"]')
-    AGE = (By.XPATH, '//input[@id="age"]')
-    SALARY = (By.XPATH, '//input[@id="salary"]')
-    DEPARTMENT = (By.XPATH, '//input[@id="department"]')
+    FIRST_NAME_INPUT = (By.XPATH, '//input[@id="firstName"]')
+    LAST_NAME_INPUT = (By.XPATH, '//input[@id="lastName"]')
+    EMAIL_INPUT = (By.XPATH, '//input[@id="userEmail"]')
+    AGE_INPUT = (By.XPATH, '//input[@id="age"]')
+    SALARY_INPUT = (By.XPATH, '//input[@id="salary"]')
+    DEPARTMENT_INPUT = (By.XPATH, '//input[@id="department"]')
     SUBMIT = (By.XPATH, '//button[@id="submit"]')
 
     FULL_PEOPLE_LIST = (By.XPATH, '//div[@class="rt-tr-group"]')
@@ -57,3 +57,9 @@ class WebTablePageLocators:
     SEARCH_WORLD = (By.XPATH, '//input[@id="searchBox"]')
     DELETE_BUTTON = (By.XPATH, '//span[@title="Delete"]')
     ROW_PARENT = './/ancestor::div[@class="rt-tr-group"]'
+
+    UPDATE_BUTTON = (By.XPATH, '//span[@title="Edit"]')
+
+    NO_ROWS_FOUND = (By.XPATH, '//div[@class="rt-noData"]')
+
+    COUNT_ROW_LIST = (By.XPATH, '//select[@aria-label="rows per page"]')
