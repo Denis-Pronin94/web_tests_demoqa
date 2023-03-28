@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait as wait
 
@@ -43,3 +44,15 @@ class BasePage:
     def go_to_element(self, element: str):
         """Переместиться к элементы."""
         self.driver.execute_script('arguments[0].scrollIntoView();', element)
+
+    def action_double_click(self, element: str):
+        """Двойной клик."""
+        action = ActionChains(self.driver)
+        action.double_click(element)
+        action.perform()
+
+    def action_right_click(self, element: str):
+        """Клик правой кнопкой мыши."""
+        action = ActionChains(self.driver)
+        action.context_click(element)
+        action.perform()

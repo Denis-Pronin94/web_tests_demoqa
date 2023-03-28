@@ -63,3 +63,15 @@ class WebTablePageLocators:
     NO_ROWS_FOUND = (By.XPATH, '//div[@class="rt-noData"]')
 
     COUNT_ROW_LIST = (By.XPATH, '//select[@aria-label="rows per page"]')
+
+
+class ButtonPageLocators:
+    """Локаторы для теста TestButton."""
+
+    DOUBLE_BUTTON = (By.XPATH, '//button[@id="doubleClickBtn"]')
+    RIGHT_CLICK_BUTTON = (By.XPATH, '//button[@id="rightClickBtn"]')
+    CLICK_ME_BUTTON = (By.XPATH, '//div[@class="mt-4"][2]//button')
+
+    SUCCESS_DOUBLE = (By.XPATH, '//p[@id="doubleClickMessage"]')
+    SUCCESS_RIGHT = (By.XPATH, '//p[@id="rightClickMessage"]')
+    SUCCESS_ME_BUTTON = (By.XPATH, '//p[@id="dynamicClickMessage"]')

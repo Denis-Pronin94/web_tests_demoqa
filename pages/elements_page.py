@@ -3,6 +3,7 @@ import random
 from generator.generator import generated_person
 
 from locators.elements_page_locators import (
+    ButtonPageLocators,
     CheckBoxPageLocators,
     RadioButtonPageLocators,
     TextBoxPageLocators,
@@ -187,3 +188,25 @@ class WebTablePage(BasePage):
         """Возвращаем массив всех строк."""
         list_rows = self.elements_are_present(self.locators.FULL_PEOPLE_LIST)
         return len(list_rows)
+
+
+class ButtonsPage(BasePage):
+    """ButtonsPage."""
+
+    locators = ButtonPageLocators()
+
+    def click_on_different_button(self, type_click: str) -> str:
+        """Кликаем и возвращаем текст."""
+        if type_click == 'double':
+            self.action_double_click(self.element_is_visible(self.locators.DOUBLE_BUTTON))
+            return self.check_clicked_on_the_button(self.locators.SUCCESS_DOUBLE)
+        if type_click == 'right':
+            self.action_right_click(self.element_is_visible(self.locators.RIGHT_CLICK_BUTTON))
+            return self.check_clicked_on_the_button(self.locators.SUCCESS_RIGHT)
+        if type_click == 'click':
+            self.element_is_visible(self.locators.CLICK_ME_BUTTON).click()
+            return self.check_clicked_on_the_button(self.locators.SUCCESS_ME_BUTTON)
+
+    def check_clicked_on_the_button(self, element: str) -> str:
+        """Возвращаем текст."""
+        return self.element_is_present(element).text
