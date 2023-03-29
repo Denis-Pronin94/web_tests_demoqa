@@ -1,4 +1,9 @@
-from pages.alerts_frame_windows_page import AlertsPage, BrowserWindowPage, FramesPage
+from pages.alerts_frame_windows_page import (
+    AlertsPage,
+    BrowserWindowPage,
+    FramesPage,
+    NestedFramesPage,
+)
 
 from selenium import webdriver
 
@@ -65,3 +70,14 @@ class TestAlertsFrameWindows:
             result_frame2 = frames.check_frame('frame2')
             assert result_frame1 == ['This is a sample page', '500px', '350px']
             assert result_frame2 == ['This is a sample page', '100px', '100px']
+
+    class TestNestedFrames:
+        """Тест - TestFrames."""
+
+        def test_nested_frames(self, driver: webdriver):
+            """Тест - test_confirm_alert."""
+            nested_frames = NestedFramesPage(driver, 'https://demoqa.com/nestedframes')
+            nested_frames.open()
+            parent_text, child_text = nested_frames.check_nested_frame()
+            assert parent_text == 'Parent frame'
+            assert child_text == 'Child Iframe'
