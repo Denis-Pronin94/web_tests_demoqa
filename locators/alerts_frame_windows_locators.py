@@ -36,3 +36,17 @@ class NestedFramesLocators:
     PARENT_TEXT = (By.CSS_SELECTOR, 'body')
     CHILD_FRAME = (By.XPATH, '//iframe[@srcdoc="<p>Child Iframe</p>"]')
     CHILD_TEXT = (By.CSS_SELECTOR, 'p')
+
+
+class ModalDialogPageLocators:
+    """Локаторы для теста test_modal_dialog."""
+
+    SMALL_MODAL_BUTTON = (By.XPATH, '//button[@id="showSmallModal"]')
+    SMALL_MODAL_CLOSE_BUTTON = (By.XPATH, '//button[@id="closeSmallModal"]')
+    BODY_SMALL_MODAL = (By.XPATH, '//div[@class="modal-body"]')
+    TITLE_SMALL_MODAL = (By.XPATH, '//div[@id="example-modal-sizes-title-sm"]')
+
+    LARGE_MODAL_BUTTON = (By.XPATH, '//button[@id="showLargeModal"]')
+    # LARGE_MODAL_CLOSE_BUTTON = (By.XPATH, '//button[@id="closeLargeModal"]')
+    BODY_LARGE_MODAL = (By.XPATH, '//div[@class="modal-body"]')
+    TITLE_LARGE_MODAL = (By.XPATH, '//div[@id="example-modal-sizes-title-lg"]')

@@ -4,7 +4,9 @@ import time
 from locators.alerts_frame_windows_locators import (
     AlertsPageLocators,
     BrowserWindowPageLocators,
-    FramesPageLocators, NestedFramesLocators,
+    FramesPageLocators,
+    ModalDialogPageLocators,
+    NestedFramesLocators,
 )
 
 from pages.base_page import BasePage
@@ -103,3 +105,20 @@ class NestedFramesPage(BasePage):
         self.driver.switch_to.frame(child_frame)
         child_text = self.element_is_present(self.locators.CHILD_TEXT).text
         return parent_text, child_text
+
+
+class ModalDialogPage(BasePage):
+    """ModalDialogPage."""
+
+    locators = ModalDialogPageLocators()
+
+    def check_modal_dialogs(self) -> tuple:
+        """Проверяем модальные окна."""
+        self.element_is_visible(self.locators.SMALL_MODAL_BUTTON).click()
+        title_small = self.element_is_visible(self.locators.TITLE_SMALL_MODAL).text
+        body_small_text = self.element_is_visible(self.locators.BODY_SMALL_MODAL).text
+        self.element_is_visible(self.locators.SMALL_MODAL_CLOSE_BUTTON).click()
+        self.element_is_visible(self.locators.LARGE_MODAL_BUTTON).click()
+        title_large = self.element_is_visible(self.locators.TITLE_LARGE_MODAL).text
+        body_large_text = self.element_is_visible(self.locators.BODY_LARGE_MODAL).text
+        return [title_small, len(body_small_text)], [title_large, len(body_large_text)]
