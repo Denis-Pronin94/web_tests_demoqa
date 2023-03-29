@@ -4,6 +4,7 @@ from http import HTTPStatus
 from pages.elements_page import (
     ButtonsPage,
     CheckBoxPage,
+    DynamicPropertiesPage,
     LinksPage,
     RadioButtonPage,
     TextBoxPage,
@@ -164,3 +165,37 @@ class TestElements:
             upload_download_page.open()
             check = upload_download_page.download_file()
             assert check is True
+
+    class TestDynamicProperties:
+        """Тест - TestDynamicProperties."""
+
+        def test_dynamic_properties(self, driver: webdriver):
+            """Тест - test_dynamic_properties."""
+            dynamic_properties_page = DynamicPropertiesPage(
+                driver,
+                'https://demoqa.com/dynamic-properties',
+            )
+            dynamic_properties_page.open()
+            color_before, color_after = dynamic_properties_page.check_changed_of_color()
+            dynamic_properties_page.check_appear_button()
+            assert color_after != color_before
+
+        def test_appear_button(self, driver: webdriver):
+            """Тест - test_appear_button."""
+            dynamic_properties_page = DynamicPropertiesPage(
+                driver,
+                'https://demoqa.com/dynamic-properties',
+            )
+            dynamic_properties_page.open()
+            appear = dynamic_properties_page.check_appear_button()
+            assert appear is True
+
+        def test_enable_button(self, driver: webdriver):
+            """Тест - test_appear_button."""
+            dynamic_properties_page = DynamicPropertiesPage(
+                driver,
+                'https://demoqa.com/dynamic-properties',
+            )
+            dynamic_properties_page.open()
+            enable = dynamic_properties_page.check_enable_button()
+            assert enable is True
