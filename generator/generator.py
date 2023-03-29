@@ -22,3 +22,12 @@ def generated_person():
         current_address=faker_ru.address(),
         permanent_address=faker_ru.address(),
     )
+
+
+def generated_file() -> tuple:
+    """Создаём тестовый файл."""
+    path = rf'C:\Users\dddpr\PycharmProjects\web_tests_demoqa\filetest{random.randint(0, 999)}.txt'
+    file = open(path, 'w+')
+    file.write(f'Hello World{random.randint(0, 999)}')
+    file.close()
+    return file.name, path

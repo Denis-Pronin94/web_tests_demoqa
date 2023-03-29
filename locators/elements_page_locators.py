@@ -82,3 +82,12 @@ class LinksPageLocators:
 
     SIMPLE_LINK = (By.XPATH, '//a[@id="simpleLink"]')
     BAD_REQEST = (By.XPATH, '//a[@id="bad-request"]')
+
+
+class UploadAndDownloadPageLocators:
+    """Локаторы для теста test_upload_file."""
+
+    UPLOAD_FILE = (By.XPATH, '//input[@id="uploadFile"]')
+    UPLOADED_RESULT = (By.XPATH, '//p[@id="uploadedFilePath"]')
+
+    DOWNLOAD_FILE = (By.XPATH, '//a[@id="downloadButton"]')

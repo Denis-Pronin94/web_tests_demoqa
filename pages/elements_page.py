@@ -1,7 +1,9 @@
+import base64
+import os
 import random
 from http import HTTPStatus
 
-from generator.generator import generated_person
+from generator.generator import generated_file, generated_person
 
 from locators.elements_page_locators import (
     ButtonPageLocators,
@@ -9,6 +11,7 @@ from locators.elements_page_locators import (
     LinksPageLocators,
     RadioButtonPageLocators,
     TextBoxPageLocators,
+    UploadAndDownloadPageLocators,
     WebTablePageLocators,
 )
 
@@ -241,3 +244,31 @@ class LinksPage(BasePage):
             self.element_is_present(self.locators.BAD_REQEST).click()
         else:
             return response.status_code
+
+
+class UploadAndDownloadPage(BasePage):
+    """UploadAndDownloadPage."""
+
+    locators = UploadAndDownloadPageLocators()
+
+    def upload_file(self) -> tuple:
+        """Загружаем файл."""
+        file_name, path = generated_file()
+        self.element_is_present(self.locators.UPLOAD_FILE).send_keys(path)
+        os.remove(path)
+        text = self.element_is_present(self.locators.UPLOADED_RESULT).text
+        return file_name.split('\\')[-1], text.split('\\')[-1]
+
+    def download_file(self) -> bool:
+        """Скачиваем файл."""
+        link = self.element_is_present(self.locators.DOWNLOAD_FILE).get_attribute('href')
+        link_b = base64.b64decode(link)
+        path_name_file = \
+            rf'C:\Users\dddpr\PycharmProjects\web_tests_demoqa\filetest{random.randint(0, 999)}.jpeg'
+        with open(path_name_file, 'wb+') as f:
+            offset = link_b.find(b'\xff\xd8')
+            f.write(link_b[offset:])
+            check_file = os.path.exists(path_name_file)
+            f.close()
+        os.remove(path_name_file)
+        return check_file
