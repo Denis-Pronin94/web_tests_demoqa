@@ -185,10 +185,11 @@ class WebTablePage(BasePage):
 
     def select_up_to_some_rows(self) -> list:
         """Возвращаем массив'."""
+        self.remove_footer()
         count = [5, 10, 20, 25, 50, 100]
         data = []
         for x in count:
-            count_rows_button = self.element_is_visible(self.locators.COUNT_ROW_LIST)
+            count_rows_button = self.element_is_present(self.locators.COUNT_ROW_LIST)
             self.go_to_element(count_rows_button)
             count_rows_button.click()
             self.element_is_visible(f'//option[@value="{x}"]').click()

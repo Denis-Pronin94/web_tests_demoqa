@@ -56,3 +56,7 @@ class BasePage:
         action = ActionChains(self.driver)
         action.context_click(element)
         action.perform()
+
+    def remove_footer(self):
+        """Удаляем футер."""
+        self.driver.execute_script("document.getElementsByTagName('footer')[0].remove();")
