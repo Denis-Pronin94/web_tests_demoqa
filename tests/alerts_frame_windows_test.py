@@ -1,4 +1,4 @@
-from pages.alerts_frame_windows_page import AlertsPage, BrowserWindowPage
+from pages.alerts_frame_windows_page import AlertsPage, BrowserWindowPage, FramesPage
 
 from selenium import webdriver
 
@@ -53,3 +53,15 @@ class TestAlertsFrameWindows:
             alert.open()
             text, alert_text = alert.check_prompt_alert()
             assert alert_text == f'You entered {text}'
+
+    class TestFrames:
+        """Тест - TestFrames."""
+
+        def test_frames(self, driver: webdriver):
+            """Тест - test_confirm_alert."""
+            frames = FramesPage(driver, 'https://demoqa.com/frames')
+            frames.open()
+            result_frame1 = frames.check_frame('frame1')
+            result_frame2 = frames.check_frame('frame2')
+            assert result_frame1 == ['This is a sample page', '500px', '350px']
+            assert result_frame2 == ['This is a sample page', '100px', '100px']

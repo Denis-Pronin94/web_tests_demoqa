@@ -19,3 +19,11 @@ class AlertsPageLocators:
 
     CONFIRM_RESULT = (By.XPATH, '//span[@id="confirmResult"]')
     PROMPT_RESULT = (By.XPATH, '//span[@id="promptResult"]')
+
+
+class FramesPageLocators:
+    """Локаторы для теста test_frames."""
+
+    FIRST_FRAME = (By.XPATH, '//iframe[@id="frame1"]')
+    SECOND_FRAME = (By.XPATH, '//iframe[@id="frame2"]')
+    TITLE_FRAME = (By.XPATH, '//h1[@id="sampleHeading"]')
