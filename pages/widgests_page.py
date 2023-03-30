@@ -8,7 +8,9 @@ from locators.widgests_locators import (
     AutocompletePageLocators,
     DatePickerPageLocators,
     ProgressBarPageLocators,
-    SliderPageLocators, TabsPageLocators,
+    SliderPageLocators,
+    TabsPageLocators,
+    ToolTipsPageLocators,
 )
 
 from pages.base_page import BasePage
@@ -203,3 +205,36 @@ class TabsPage(BasePage):
         button.click()
         what_content = self.element_is_visible(tabs[name_tab]['content']).text
         return button.text, len(what_content)
+
+
+class ToolTipsPage(BasePage):
+    """ToolTipsPage."""
+
+    locators = ToolTipsPageLocators()
+
+    def get_text_from_tool_tips(self, hover_element: str, wait_element: str) -> str:
+        """Возвращаем текст ховера."""
+        element = self.element_is_present(hover_element)
+        self.action_move_to_element(element)
+        self.element_is_visible(wait_element)
+        tool_tip_text = self.element_is_visible(self.locators.TOOL_TIPS_INNERS)
+        return tool_tip_text.text
+
+    def check_tool_tips(self) -> tuple:
+        """Проверяем текст ховера."""
+        tool_tip_text_button = self.get_text_from_tool_tips(
+            self.locators.BUTTON, self.locators.TOOL_TIP_BUTTON)
+        time.sleep(0.2)
+        tool_tip_text_field = self.get_text_from_tool_tips(
+            self.locators.FIELD, self.locators.TOOL_TIP_FIELD)
+        time.sleep(0.2)
+        tool_tip_text_contrary = self.get_text_from_tool_tips(
+            self.locators.CONTRARY_LINK, self.locators.TOOL_TIP_CONTRARY)
+        time.sleep(0.2)
+        tool_tip_text_section = self.get_text_from_tool_tips(
+            self.locators.SECTION_LINK, self.locators.TOOL_TIP_SECTION)
+        return (tool_tip_text_button,
+                tool_tip_text_field,
+                tool_tip_text_contrary,
+                tool_tip_text_section,
+                )

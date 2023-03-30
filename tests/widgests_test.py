@@ -5,6 +5,7 @@ from pages.widgests_page import (
     ProgressBarPage,
     SliderPage,
     TabsPage,
+    ToolTipsPage,
 )
 
 import pytest
@@ -100,7 +101,7 @@ class TestWidgets:
 
         @pytest.mark.skip(reason='Баг - невозможно нажать на кнопку "More"')
         def test_tabs(self, driver: webdriver):
-            """Тест - test_progress_bar."""
+            """Тест - test_tabs."""
             tabs = TabsPage(driver, 'https://demoqa.com/tabs')
             tabs.open()
             what_button, what_content = tabs.check_tabs('what')
@@ -111,3 +112,16 @@ class TestWidgets:
             assert origin_button == 'Origin' and origin_content != 0
             assert use_button == 'Use' and use_content != 0
             assert more_button == 'More' and more_content != 0
+
+    class TestToolTips:
+        """Тест - TestTabs."""
+
+        def test_tool_tips(self, driver: webdriver):
+            """Тест - test_tool_tips."""
+            tool_tips = ToolTipsPage(driver, 'https://demoqa.com/tool-tips')
+            tool_tips.open()
+            button_text, field_text, contrary_text, section_text = tool_tips.check_tool_tips()
+            assert button_text == 'You hovered over the Button'
+            assert field_text == 'You hovered over the text field'
+            assert contrary_text == 'You hovered over the Contrary'
+            assert section_text == 'You hovered over the 1.10.32'
