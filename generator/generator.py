@@ -1,6 +1,6 @@
 import random
 
-from data.data import Person
+from data.data import Color, Person
 
 from faker import Faker
 
@@ -32,3 +32,21 @@ def generated_file() -> tuple:
     file.write(f'Hello World{random.randint(0, 999)}')
     file.close()
     return file.name, path
+
+
+def generated_color():
+    """Список цветов."""
+    yield Color(color_name=[
+        'Red',
+        'Blue',
+        'Green',
+        'Yellow',
+        'Purple',
+        'Black',
+        'White',
+        'Voilet',
+        'Indigo',
+        'Magenta',
+        'Aqua',
+    ],
+    )

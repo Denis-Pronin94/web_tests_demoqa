@@ -1,8 +1,6 @@
-
+from pages.widgests_page import AccordianPage, AutocompletePage
 
 from selenium import webdriver
-
-from pages.widgests_page import AccordianPage
 
 
 class TestWidgets:
@@ -22,5 +20,29 @@ class TestWidgets:
             assert second_title == 'Where does it come from?' and second_content > 0
             assert third_title == 'Why do we use it?' and third_content > 0
 
+    class TestAutocomplete:
+        """Тест - TestAutoComplete."""
 
+        def test_fill_multi_autocomplete(self, driver: webdriver):
+            """Тест - test_fill_multi_autocomplete."""
+            autocomplete = AutocompletePage(driver, 'https://demoqa.com/auto-complete')
+            autocomplete.open()
+            colors = autocomplete.fill_input_multi()
+            colors_result = autocomplete.check_color_in_multi()
+            assert colors == colors_result
 
+        def test_remove_value_from_multi(self, driver: webdriver):
+            """Тест - test_remove_value_from_multi."""
+            autocomplete = AutocompletePage(driver, 'https://demoqa.com/auto-complete')
+            autocomplete.open()
+            autocomplete.fill_input_multi()
+            count_value_before, count_value_after = autocomplete.remove_value_from_multi()
+            assert count_value_before != count_value_after
+
+        def test_fill_single_autocomplete(self, driver: webdriver):
+            """Тест - test_fill_single_autocomplete."""
+            autocomplete = AutocompletePage(driver, 'https://demoqa.com/auto-complete')
+            autocomplete.open()
+            color = autocomplete.fill_input_single()
+            color_result = autocomplete.check_color_in_single()
+            assert color == color_result
