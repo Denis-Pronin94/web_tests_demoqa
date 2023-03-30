@@ -2,6 +2,7 @@ from pages.widgests_page import (
     AccordianPage,
     AutocompletePage,
     DatePickerPage,
+    MenuPage,
     ProgressBarPage,
     SliderPage,
     TabsPage,
@@ -125,3 +126,21 @@ class TestWidgets:
             assert field_text == 'You hovered over the text field'
             assert contrary_text == 'You hovered over the Contrary'
             assert section_text == 'You hovered over the 1.10.32'
+
+    class TestMenu:
+        """Тест - TestTabs."""
+
+        def test_menu(self, driver: webdriver):
+            """Тест - test_tool_tips."""
+            menu = MenuPage(driver, 'https://demoqa.com/menu')
+            menu.open()
+            data = menu.check_menu()
+            assert data == [
+                'Main Item 1',
+                'Main Item 2',
+                'Sub Item', 'Sub Item',
+                'SUB SUB LIST »',
+                'Sub Sub Item 1',
+                'Sub Sub Item 2',
+                'Main Item 3',
+            ]

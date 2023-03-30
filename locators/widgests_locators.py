@@ -90,3 +90,9 @@ class ToolTipsPageLocators:
     TOOL_TIP_SECTION = (By.XPATH, '//a[@aria-describedby="sectionToolTip"]')
 
     TOOL_TIPS_INNERS = (By.XPATH, '//div[@class="tooltip-inner"]')
+
+
+class MenuPageLocators:
+    """Локаторы для теста test_menu."""
+
+    MENU_ITEM_LIST = (By.XPATH, '//ul[@id="nav"]//li//a')

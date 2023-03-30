@@ -7,6 +7,7 @@ from locators.widgests_locators import (
     AccordianPageLocators,
     AutocompletePageLocators,
     DatePickerPageLocators,
+    MenuPageLocators,
     ProgressBarPageLocators,
     SliderPageLocators,
     TabsPageLocators,
@@ -238,3 +239,18 @@ class ToolTipsPage(BasePage):
                 tool_tip_text_contrary,
                 tool_tip_text_section,
                 )
+
+
+class MenuPage(BasePage):
+    """MenuPage."""
+
+    locators = MenuPageLocators()
+
+    def check_menu(self) -> list:
+        """Проверяем меню."""
+        menu_item_list = self.elements_are_present(self.locators.MENU_ITEM_LIST)
+        data = []
+        for item in menu_item_list:
+            self.action_move_to_element(item)
+            data.append(item.text)
+        return data
