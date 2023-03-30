@@ -22,3 +22,12 @@ class SelectablePageLocators:
     TAB_GRID = (By.XPATH, '//a[@id="demo-tab-grid"]')
     GRID_ITEM = (By.XPATH, '//li[@class="list-group-item list-group-item-action"]')
     GRID_ITEM_ACTIVE = (By.XPATH, '//li[@class="list-group-item active list-group-item-action"]')
+
+
+class ResizablePageLocators:
+    """Локаторы для теста test_resizable."""
+
+    RESIZABLE_BOX_HANDLE = (By.XPATH, '//div[@id="resizableBoxWithRestriction"]/span')
+    RESIZABLE_BOX = (By.XPATH, '//div[@id="resizableBoxWithRestriction"]')
+    RESIZABLE_HANDLE = (By.XPATH, '//div[@id="resizable"]/span')
+    RESIZABLE = (By.XPATH, '//div[@id="resizable"]')
