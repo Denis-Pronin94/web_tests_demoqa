@@ -59,3 +59,16 @@ class ProgressBarPageLocators:
 
     PROGRESS_BAR_BUTTON = (By.XPATH, '//button[@id="startStopButton"]')
     PROGRESS_BAR_VALUE = (By.XPATH, '//div[@class="progress-bar bg-info"]')
+
+
+class TabsPageLocators:
+    """Локаторы для теста test_tabs."""
+
+    TABS_WHAT = (By.XPATH, '//a[@id="demo-tab-what"]')
+    TABS_WHAT_CONTENT = (By.XPATH, '//div[@id="demo-tabpane-what"]')
+    TABS_ORIGIN = (By.XPATH, '//a[@id="demo-tab-origin"]')
+    TABS_ORIGIN_CONTENT = (By.XPATH, '//div[@id="demo-tabpane-origin"]')
+    TABS_USE = (By.XPATH, '//a[@id="demo-tab-use"]')
+    TABS_USE_CONTENT = (By.XPATH, '//div[@id="demo-tabpane-use"]')
+    TABS_MORE = (By.XPATH, '//a[@id="demo-tab-more"]')
+    TABS_MORE_CONTENT = (By.XPATH, '//div[@id="demo-tabpane-more"]')
