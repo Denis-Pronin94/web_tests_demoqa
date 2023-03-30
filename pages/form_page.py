@@ -2,7 +2,7 @@ import os
 
 from generator.generator import generated_file, generated_person
 
-from locators.form_page_locators import FormPageLocators
+from locators.form_locators import FormPageLocators
 
 from pages.base_page import BasePage
 

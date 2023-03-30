@@ -6,7 +6,7 @@ from http import HTTPStatus
 
 from generator.generator import generated_file, generated_person
 
-from locators.elements_page_locators import (
+from locators.elements_locators import (
     ButtonPageLocators,
     CheckBoxPageLocators,
     DynamicPropertiesPageLocators,
