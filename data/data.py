@@ -22,3 +22,13 @@ class Color:
     """Class Color."""
 
     color_name: list = None
+
+
+@dataclass
+class Date:
+    """Class Date."""
+
+    day: str = None
+    month: str = None
+    year: str = None
+    time: str = None

@@ -26,3 +26,22 @@ class AutocompletePageLocators:
         '//div[@class="auto-complete__single-value css-1uccc91-singleValue"]',
     )
     SINGLE_INPUT = (By.XPATH, '//input[@id="autoCompleteSingleInput"]')
+
+
+class DatePickerPageLocators:
+    """Локаторы для теста TestDatePiker."""
+
+    DATE_INPUT = (By.XPATH, '//input[@id="datePickerMonthYearInput"]')
+    DATE_SELECT_MONTH = (By.XPATH, '//select[@class="react-datepicker__month-select"]')
+    DATE_SELECT_YEAR = (By.XPATH, '//select[@class="react-datepicker__year-select"]')
+    DATE_SELECT_DAY_LIST = (
+        By.CSS_SELECTOR,
+        'div[class^="react-datepicker__day react-datepicker__day"]',
+    )
+
+    DATE_AND_TIME_INPUT = (By.XPATH, '//input[@id="dateAndTimePickerInput"]')
+    DATE_AND_TIME_MONTH = (By.XPATH, '//div[@class="react-datepicker__month-read-view"]')
+    DATE_AND_TIME_YEAR = (By.XPATH, '//div[@class="react-datepicker__year-read-view"]')
+    DATE_AND_TIME_TIME_LIST = (By.XPATH, '//li[@class="react-datepicker__time-list-item "]')
+    DATE_AND_TIME_MONTH_LIST = (By.XPATH, '//div[@class="react-datepicker__month-option"]')
+    DATE_AND_TIME_YEAR_LIST = (By.XPATH, '//div[@class="react-datepicker__year-option"]')

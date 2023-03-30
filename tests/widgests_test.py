@@ -1,4 +1,4 @@
-from pages.widgests_page import AccordianPage, AutocompletePage
+from pages.widgests_page import AccordianPage, AutocompletePage, DatePickerPage
 
 from selenium import webdriver
 
@@ -46,3 +46,22 @@ class TestWidgets:
             color = autocomplete.fill_input_single()
             color_result = autocomplete.check_color_in_single()
             assert color == color_result
+
+    class TestDatePiker:
+        """Тест - TestDatePiker."""
+
+        def test_change_date(self, driver: webdriver):
+            """Тест - test_fill_multi_autocomplete."""
+            date_picker = DatePickerPage(driver, 'https://demoqa.com/date-picker')
+            date_picker.open()
+            value_date_before, value_date_after = date_picker.select_date()
+            assert value_date_before != value_date_after
+
+        def test_change_date_and_time(self, driver: webdriver):
+            """Тест - test_fill_multi_autocomplete."""
+            date_picker = DatePickerPage(driver, 'https://demoqa.com/date-picker')
+            date_picker.open()
+            value_date_before, value_date_after = date_picker.select_date_and_time()
+            print(value_date_before)
+            print(value_date_after)
+            assert value_date_before != value_date_after

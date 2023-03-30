@@ -1,11 +1,12 @@
 import random
 
-from data.data import Color, Person
+from data.data import Color, Date, Person
 
 from faker import Faker
 
 
 faker_ru = Faker('ru_RU')
+faker_en = Faker('EN')
 Faker.seed()
 
 
@@ -49,4 +50,14 @@ def generated_color():
         'Magenta',
         'Aqua',
     ],
+    )
+
+
+def generated_date():
+    """Список date."""
+    yield Date(
+        year=faker_en.year(),
+        month=faker_en.month_name(),
+        day=faker_en.day_of_month(),
+        time='12:00',
     )
