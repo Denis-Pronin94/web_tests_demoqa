@@ -1,4 +1,10 @@
-from pages.widgests_page import AccordianPage, AutocompletePage, DatePickerPage
+from pages.widgests_page import (
+    AccordianPage,
+    AutocompletePage,
+    DatePickerPage,
+    ProgressBarPage,
+    SliderPage,
+)
 
 from selenium import webdriver
 
@@ -65,3 +71,23 @@ class TestWidgets:
             print(value_date_before)
             print(value_date_after)
             assert value_date_before != value_date_after
+
+    class TestSlider:
+        """Тест - TestSlider."""
+
+        def test_slider(self, driver: webdriver):
+            """Тест - test_slider."""
+            slider = SliderPage(driver, 'https://demoqa.com/slider')
+            slider.open()
+            before, after = slider.change_slider_value()
+            assert before != after
+
+    class TestProgressBar:
+        """Тест - TestProgressBar."""
+
+        def test_progress_bar(self, driver: webdriver):
+            """Тест - test_progress_bar."""
+            progress_bar = ProgressBarPage(driver, 'https://demoqa.com/progress-bar')
+            progress_bar.open()
+            before, after = progress_bar.change_progress_bar_value()
+            assert before != after

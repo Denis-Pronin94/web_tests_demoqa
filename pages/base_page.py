@@ -57,6 +57,12 @@ class BasePage:
         action.context_click(element)
         action.perform()
 
+    def action_drag_and_drop_by_offset(self, element: str, x_coords: int, y_coords: int):
+        """Двигаем оп координатам."""
+        action = ActionChains(self.driver)
+        action.drag_and_drop_by_offset(element, x_coords, y_coords)
+        action.perform()
+
     def remove_footer(self):
         """Удаляем футер."""
         self.driver.execute_script("document.getElementsByTagName('footer')[0].remove();")

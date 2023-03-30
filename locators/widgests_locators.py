@@ -45,3 +45,17 @@ class DatePickerPageLocators:
     DATE_AND_TIME_TIME_LIST = (By.XPATH, '//li[@class="react-datepicker__time-list-item "]')
     DATE_AND_TIME_MONTH_LIST = (By.XPATH, '//div[@class="react-datepicker__month-option"]')
     DATE_AND_TIME_YEAR_LIST = (By.XPATH, '//div[@class="react-datepicker__year-option"]')
+
+
+class SliderPageLocators:
+    """Локаторы для теста test_slider."""
+
+    INPUT_SLIDER = (By.XPATH, '//input[@class="range-slider range-slider--primary"]')
+    SLIDER_VALUE = (By.XPATH, '//input[@id="sliderValue"]')
+
+
+class ProgressBarPageLocators:
+    """Локаторы для теста test_progress_bar."""
+
+    PROGRESS_BAR_BUTTON = (By.XPATH, '//button[@id="startStopButton"]')
+    PROGRESS_BAR_VALUE = (By.XPATH, '//div[@class="progress-bar bg-info"]')
