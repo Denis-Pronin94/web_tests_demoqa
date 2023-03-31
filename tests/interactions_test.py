@@ -1,6 +1,4 @@
-import time
-
-from pages.interactions_page import ResizablePage, SelectablePage, SortablePage, DroppablePage
+from pages.interactions_page import DroppablePage, ResizablePage, SelectablePage, SortablePage
 
 from selenium import webdriver
 
@@ -69,7 +67,8 @@ class TestInteractions:
             """Тест - test_sortable."""
             droppable = DroppablePage(driver, 'https://demoqa.com/droppable')
             droppable.open()
-            not_greedy, not_greedy_inner, greedy, greedy_inner = droppable.drop_prevent_propogation()
+            not_greedy, not_greedy_inner, greedy, greedy_inner = \
+                droppable.drop_prevent_propogation()
             assert not_greedy == 'Dropped!'
             assert not_greedy_inner == 'Dropped!'
             assert greedy == 'Outer droppable'
@@ -79,7 +78,9 @@ class TestInteractions:
             """Тест - test_sortable."""
             droppable = DroppablePage(driver, 'https://demoqa.com/droppable')
             droppable.open()
-            will_position_after_move, will_position_after_revert = droppable.drop_revert_draggable('will')
-            not_position_after_move, not_position_after_revert = droppable.drop_revert_draggable('not_will')
+            will_position_after_move, will_position_after_revert = \
+                droppable.drop_revert_draggable('will')
+            not_position_after_move, not_position_after_revert = \
+                droppable.drop_revert_draggable('not_will')
             assert will_position_after_move != will_position_after_revert
             assert not_position_after_move == not_position_after_revert

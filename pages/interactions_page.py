@@ -2,9 +2,10 @@ import random
 import time
 
 from locators.interactions_locators import (
+    DroppablePageLocators,
     ResizablePageLocators,
     SelectablePageLocators,
-    SortablePageLocators, DroppablePageLocators,
+    SortablePageLocators,
 )
 
 from pages.base_page import BasePage
@@ -153,9 +154,14 @@ class DroppablePage(BasePage):
         self.action_drag_and_drop_to_element(drag_div, greedy_inner_box)
         text_greedy_box = self.element_is_visible(self.locators.GREEDY_DROP_BOX_TEXT).text
         text_greedy_inner_box = greedy_inner_box.text
-        return text_not_greedy_box, text_not_greedy_inner_box, text_greedy_box, text_greedy_inner_box
+        return (
+            text_not_greedy_box,
+            text_not_greedy_inner_box,
+            text_greedy_box,
+            text_greedy_inner_box,
+        )
 
-    def drop_revert_draggable(self, type_drag) -> tuple:
+    def drop_revert_draggable(self, type_drag: str) -> tuple:
         """Возвращаем тест position_after_move и position_after_revert."""
         drags = {
             'will':
