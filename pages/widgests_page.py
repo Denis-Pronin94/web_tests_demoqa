@@ -1,6 +1,8 @@
 import random
 import time
 
+import allure
+
 from generator.generator import generated_color, generated_date
 
 from locators.widgests_locators import (
@@ -26,6 +28,7 @@ class AccordianPage(BasePage):
 
     locators = AccordianPageLocators()
 
+    @allure.step('check accordian widget')
     def check_accordian(self, accordian_num: str) -> list:
         """Возвращаем текст."""
         accordian = {
@@ -54,6 +57,7 @@ class AutocompletePage(BasePage):
 
     locators = AutocompletePageLocators()
 
+    @allure.step('fill multi autocomplete input')
     def fill_input_multi(self) -> list:
         """Возвращаем текст цвета."""
         colors = random.sample(next(generated_color()).color_name, k=random.randint(2, 5))
@@ -63,6 +67,7 @@ class AutocompletePage(BasePage):
             input_multi.send_keys(Keys.ENTER)
         return colors
 
+    @allure.step('remove value from multi autocomplete')
     def remove_value_from_multi(self) -> tuple:
         """Удаляем цвет."""
         count_value_before = len(self.elements_are_present(self.locators.MULTI_VALUE))
@@ -73,6 +78,7 @@ class AutocompletePage(BasePage):
         count_value_after = len(self.elements_are_present(self.locators.MULTI_VALUE))
         return count_value_before, count_value_after
 
+    @allure.step('check colors in multi autocomplete')
     def check_color_in_multi(self) -> list:
         """Проверяем цвет."""
         color_list = self.elements_are_present(self.locators.MULTI_VALUE)
@@ -81,6 +87,7 @@ class AutocompletePage(BasePage):
             colors.append(color.text)
         return colors
 
+    @allure.step('fill single autocomplete input')
     def fill_input_single(self) -> str:
         """Заполняем single."""
         color = random.sample(next(generated_color()).color_name, k=1)
@@ -89,6 +96,7 @@ class AutocompletePage(BasePage):
         input_single.send_keys(Keys.ENTER)
         return color[0]
 
+    @allure.step('check color in single autocomplete')
     def check_color_in_single(self) -> str:
         """Проверяем single."""
         color = self.element_is_visible(self.locators.SINGLE_VALUE)
@@ -100,6 +108,7 @@ class DatePickerPage(BasePage):
 
     locators = DatePickerPageLocators()
 
+    @allure.step('change date')
     def select_date(self) -> tuple:
         """Проверяем single."""
         date = next(generated_date())
@@ -112,6 +121,7 @@ class DatePickerPage(BasePage):
         value_date_after = input_date.get_attribute('value')
         return value_date_before, value_date_after
 
+    @allure.step('change select date and time')
     def select_date_and_time(self) -> tuple:
         """Выбираем text."""
         date = next(generated_date())
@@ -128,11 +138,13 @@ class DatePickerPage(BasePage):
         value_date_after = input_date_after.get_attribute('value')
         return value_date_before, value_date_after
 
+    @allure.step('select date by text')
     def set_date_by_text(self, element: str, value: str):
         """Выбираем text."""
         select = Select(self.element_is_present(element))
         select.select_by_visible_text(value)
 
+    @allure.step('select date item from list')
     def set_date_item_from_list(self, element: str, value: str):
         """Проверяем text."""
         item_list = self.elements_are_present(element)
@@ -147,6 +159,7 @@ class SliderPage(BasePage):
 
     locators = SliderPageLocators()
 
+    @allure.step('change slider value')
     def change_slider_value(self) -> tuple:
         """Возвращаем значение слайдера."""
         value_before = self.element_is_visible(self.locators.SLIDER_VALUE).get_attribute('value')
@@ -161,6 +174,7 @@ class ProgressBarPage(BasePage):
 
     locators = ProgressBarPageLocators()
 
+    @allure.step('change progress bar value')
     def change_progress_bar_value(self) -> tuple:
         """Возвращаем текст progress_bar."""
         value_before = self.element_is_present(self.locators.PROGRESS_BAR_VALUE).text
@@ -177,6 +191,7 @@ class TabsPage(BasePage):
 
     locators = TabsPageLocators()
 
+    @allure.step('check tabs')
     def check_tabs(self, name_tab: str) -> tuple:
         """Возвращаем текст кнопки и длинну текста."""
         tabs = {
@@ -213,6 +228,7 @@ class ToolTipsPage(BasePage):
 
     locators = ToolTipsPageLocators()
 
+    @allure.step('get text from tool tip')
     def get_text_from_tool_tips(self, hover_element: str, wait_element: str) -> str:
         """Возвращаем текст ховера."""
         element = self.element_is_present(hover_element)
@@ -221,6 +237,7 @@ class ToolTipsPage(BasePage):
         tool_tip_text = self.element_is_visible(self.locators.TOOL_TIPS_INNERS)
         return tool_tip_text.text
 
+    @allure.step('check tool tip')
     def check_tool_tips(self) -> tuple:
         """Проверяем текст ховера."""
         tool_tip_text_button = self.get_text_from_tool_tips(
@@ -246,6 +263,7 @@ class MenuPage(BasePage):
 
     locators = MenuPageLocators()
 
+    @allure.step('check menu item')
     def check_menu(self) -> list:
         """Проверяем меню."""
         menu_item_list = self.elements_are_present(self.locators.MENU_ITEM_LIST)

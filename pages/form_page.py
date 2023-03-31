@@ -1,5 +1,7 @@
 import os
 
+import allure
+
 from generator.generator import generated_file, generated_person
 
 from locators.form_locators import FormPageLocators
@@ -14,6 +16,7 @@ class FormPage(BasePage):
 
     locators = FormPageLocators()
 
+    @allure.step('fill in all fields')
     def fill_form_field(self) -> str:
         """Заполняем форму."""
         person = next(generated_person())
@@ -37,6 +40,7 @@ class FormPage(BasePage):
         self.element_is_visible(self.locators.SUBMIT).send_keys(Keys.ENTER)
         return person
 
+    @allure.step('get form result')
     def form_result(self) -> list:
         """Возвращаем результат."""
         result_list = self.elements_are_present(self.locators.RESULT_TABLE)

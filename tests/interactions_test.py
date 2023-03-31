@@ -1,3 +1,5 @@
+import allure
+
 from pages.interactions_page import (
     DraggablePage,
     DroppablePage,
@@ -9,12 +11,15 @@ from pages.interactions_page import (
 from selenium import webdriver
 
 
+@allure.suite('Interactions')
 class TestInteractions:
     """Сьют - TestInteractions."""
 
+    @allure.feature('Sortable Page')
     class TestSortable:
         """Тест - TestSortable."""
 
+        @allure.title('Check changed sortable list and grid')
         def test_sortable(self, driver: webdriver):
             """Тест - test_sortable."""
             sortable = SortablePage(driver, 'https://demoqa.com/sortable')
@@ -24,9 +29,11 @@ class TestInteractions:
             assert list_before != list_after
             assert grid_before != grid_after
 
+    @allure.feature('Selectable Page')
     class TestSelectable:
         """Тест - TestSelectable."""
 
+        @allure.title('Check changed selectable list and grid')
         def test_selectable(self, driver: webdriver):
             """Тест - test_selectable."""
             selectable = SelectablePage(driver, 'https://demoqa.com/selectable')
@@ -36,9 +43,11 @@ class TestInteractions:
             assert len(item_list) > 0
             assert len(item_grid) > 0
 
+    @allure.feature('Resizable Page')
     class TestResizable:
         """Тест - TestResizable."""
 
+        @allure.title('Check changed resizable boxes')
         def test_resizable(self, driver: webdriver):
             """Тест - test_resizable."""
             resizable = ResizablePage(driver, 'https://demoqa.com/resizable')
@@ -51,9 +60,11 @@ class TestInteractions:
             assert ('150px', '150px') == min_box
             assert max_resize != min_resize
 
+    @allure.feature('Droppable Page')
     class TestDroppable:
         """Тест - TestDroppable."""
 
+        @allure.title('Check simple droppable')
         def test_simple_droppable(self, driver: webdriver):
             """Тест - test_simple_droppable."""
             droppable = DroppablePage(driver, 'https://demoqa.com/droppable')
@@ -61,6 +72,7 @@ class TestInteractions:
             text = droppable.drop_simple()
             assert text == 'Dropped!'
 
+        @allure.title('Check accept droppable')
         def test_accept_droppable(self, driver: webdriver):
             """Тест - test_accept_droppable."""
             droppable = DroppablePage(driver, 'https://demoqa.com/droppable')
@@ -69,6 +81,7 @@ class TestInteractions:
             assert not_accept == 'Drop here'
             assert accept == 'Dropped!'
 
+        @allure.title('Check prevent propogation droppable')
         def test_prevent_propogation_droppable(self, driver: webdriver):
             """Тест - test_prevent_propogation_droppable."""
             droppable = DroppablePage(driver, 'https://demoqa.com/droppable')
@@ -80,6 +93,7 @@ class TestInteractions:
             assert greedy == 'Outer droppable'
             assert greedy_inner == 'Dropped!'
 
+        @allure.title('Check revert draggable droppable')
         def test_revert_draggable_droppable(self, driver: webdriver):
             """Тест - test_revert_draggable_droppable."""
             droppable = DroppablePage(driver, 'https://demoqa.com/droppable')
@@ -91,9 +105,11 @@ class TestInteractions:
             assert will_position_after_move != will_position_after_revert
             assert not_position_after_move == not_position_after_revert
 
+    @allure.feature('Draggable Page')
     class TestDraggable:
         """Тест - TestDraggable."""
 
+        @allure.title('Check simple draggable')
         def test_simple_draggable(self, driver: webdriver):
             """Тест - test_simple_draggable."""
             draggable = DraggablePage(driver, 'https://demoqa.com/dragabble')
@@ -101,6 +117,7 @@ class TestInteractions:
             before, after = draggable.simple_drag_box()
             assert before != after
 
+        @allure.title('Check axis restricted draggable')
         def test_axis_restricted_draggable(self, driver: webdriver):
             """Тест - test_axis_restricted_draggable."""
             draggable = DraggablePage(driver, 'https://demoqa.com/dragabble')

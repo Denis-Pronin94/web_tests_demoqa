@@ -2,6 +2,8 @@ import random
 import re
 import time
 
+import allure
+
 from locators.interactions_locators import (
     DraggablePageLocators,
     DroppablePageLocators,
@@ -18,11 +20,13 @@ class SortablePage(BasePage):
 
     locators = SortablePageLocators()
 
+    @allure.step('get sortable items')
     def get_sortable_item(self, elements: str) -> list:
         """Возвращаем массив."""
         item_list = self.elements_are_visible(elements)
         return [item.text for item in item_list]
 
+    @allure.step('change list order')
     def change_list_order(self) -> tuple:
         """Возвращаем массив после drag_and_drop."""
         self.element_is_visible(self.locators.TAB_LIST).click()
@@ -34,6 +38,7 @@ class SortablePage(BasePage):
         order_after = self.get_sortable_item(self.locators.LIST_ITEM)
         return order_before, order_after
 
+    @allure.step('change grade order')
     def change_grid_order(self) -> tuple:
         """Возвращаем массив после drag_and_drop."""
         self.element_is_visible(self.locators.TAB_GRID).click()
@@ -51,11 +56,13 @@ class SelectablePage(BasePage):
 
     locators = SelectablePageLocators()
 
+    @allure.step('click selectable item')
     def click_selectable_item(self, element: str):
         """Возвращаем массив после drag_and_drop."""
         item_list = self.elements_are_visible(element)
         random.sample(item_list, k=1)[0].click()
 
+    @allure.step('select list item')
     def select_list_item(self) -> str:
         """Возвращаем текст елемента."""
         self.element_is_visible(self.locators.TAB_LIST).click()
@@ -63,6 +70,7 @@ class SelectablePage(BasePage):
         active_element = self.element_is_visible(self.locators.LIST_ITEM_ACTIVE)
         return active_element.text
 
+    @allure.step('select grid item')
     def select_grid_item(self) -> str:
         """Возвращаем текст елемента."""
         self.element_is_visible(self.locators.TAB_GRID).click()
@@ -76,17 +84,20 @@ class ResizablePage(BasePage):
 
     locators = ResizablePageLocators()
 
+    @allure.step('get px from width and height')
     def get_px_from_width_height(self, value_of_size: str) -> tuple:
         """Возвращаем размер окна."""
         width = value_of_size.split(';')[0].split(':')[1].replace(' ', '')
         height = value_of_size.split(';')[1].split(':')[1].replace(' ', '')
         return width, height
 
+    @allure.step('get max and min size')
     def get_max_min_size(self, element: str) -> str:
         """Возвращаем размер окна."""
         size = self.element_is_present(element)
         return size.get_attribute('style')
 
+    @allure.step('change size resizable box')
     def change_size_resizable_box(self) -> tuple:
         """Возвращаем максимальный и минимальный размер окна."""
         self.action_drag_and_drop_by_offset(
@@ -101,6 +112,7 @@ class ResizablePage(BasePage):
             self.get_max_min_size(self.locators.RESIZABLE_BOX))
         return max_size, min_size
 
+    @allure.step('change size resizable')
     def change_size_resizable(self) -> tuple:
         """Возвращаем максимальный и минимальный размер окна."""
         self.action_drag_and_drop_by_offset(
@@ -124,6 +136,7 @@ class DroppablePage(BasePage):
 
     locators = DroppablePageLocators()
 
+    @allure.step('drop simple div')
     def drop_simple(self) -> str:
         """Возвращаем тест drop_div."""
         self.element_is_visible(self.locators.SIMPLE_TAB).click()
@@ -132,6 +145,7 @@ class DroppablePage(BasePage):
         self.action_drag_and_drop_to_element(drag_div, drop_div)
         return drop_div.text
 
+    @allure.step('drop accept div')
     def drop_accept(self) -> tuple:
         """Возвращаем тест not_accept и accept."""
         self.element_is_visible(self.locators.ACCEPT_TAB).click()
@@ -144,6 +158,7 @@ class DroppablePage(BasePage):
         drop_text_accept = drop_div.text
         return drop_text_not_accept, drop_text_accept
 
+    @allure.step('drop prevent propogation div')
     def drop_prevent_propogation(self) -> tuple:
         """Возвращаем тест not_greedy_box, not_greedy_inner_box, greedy_box и greedy_inner_box."""
         self.element_is_visible(self.locators.PREVENT_TAB).click()
@@ -163,6 +178,7 @@ class DroppablePage(BasePage):
             text_greedy_inner_box,
         )
 
+    @allure.step('drag revert draggable div')
     def drop_revert_draggable(self, type_drag: str) -> tuple:
         """Возвращаем тест position_after_move и position_after_revert."""
         drags = {
@@ -186,6 +202,7 @@ class DraggablePage(BasePage):
 
     locators = DraggablePageLocators()
 
+    @allure.step('get before and after positions')
     def get_before_and_after_position(self, drag_element: str) -> tuple:
         """Возвращаем тест before_position и after_position."""
         self.action_drag_and_drop_by_offset(
@@ -196,6 +213,7 @@ class DraggablePage(BasePage):
         after_position = drag_element.get_attribute('style')
         return before_position, after_position
 
+    @allure.step('simple drag and drop')
     def simple_drag_box(self) -> tuple:
         """Возвращаем тест before_position и after_position."""
         self.element_is_visible(self.locators.SIMPLE_TAB)
@@ -203,14 +221,17 @@ class DraggablePage(BasePage):
         before_position, after_position = self.get_before_and_after_position(drag_div)
         return before_position, after_position
 
+    @allure.step('get top position')
     def get_top_position(self, positions: str) -> list:
         """Возвращаем координаты top."""
         return re.findall(r'\d[0-9]|\d', positions.split(';')[2])
 
+    @allure.step('get left position')
     def get_left_position(self, positions: str) -> list:
         """Возвращаем координаты left."""
         return re.findall(r'\d[0-9]|\d', positions.split(';')[1])
 
+    @allure.step('drag only_x')
     def axis_restricted_x(self) -> tuple:
         """Возвращаем массив новых координат."""
         self.element_is_visible(self.locators.AXIS_TAB).click()
@@ -222,6 +243,7 @@ class DraggablePage(BasePage):
         left_x_after = self.get_left_position(position_x[1])
         return [top_x_before, top_x_after], [left_x_before, left_x_after]
 
+    @allure.step('drag only_y')
     def axis_restricted_y(self) -> tuple:
         """Возвращаем массив новых координат."""
         self.element_is_visible(self.locators.AXIS_TAB).click()

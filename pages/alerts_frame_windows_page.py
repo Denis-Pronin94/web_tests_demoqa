@@ -1,6 +1,8 @@
 import random
 import time
 
+import allure
+
 from locators.alerts_frame_windows_locators import (
     AlertsPageLocators,
     BrowserWindowPageLocators,
@@ -17,12 +19,14 @@ class BrowserWindowPage(BasePage):
 
     locators = BrowserWindowPageLocators()
 
+    @allure.step('check opened new tab ')
     def check_opened_new_tab(self) -> str:
         """Проверяем новую вкладку."""
         self.element_is_visible(self.locators.NEW_TAB_BUTTON).click()
         self.driver.switch_to.window(self.driver.window_handles[1])
         return self.element_is_present(self.locators.TITLE_NEW).text
 
+    @allure.step('check opened new window')
     def check_opened_new_window(self) -> str:
         """Проверяем новую вкладку."""
         self.element_is_visible(self.locators.NEW_WINDOW_BUTTON).click()
@@ -35,19 +39,22 @@ class AlertsPage(BasePage):
 
     locators = AlertsPageLocators()
 
+    @allure.step('get text from alert')
     def check_see_alert(self) -> str:
         """Проверяем текст алерта."""
         self.element_is_visible(self.locators.SEE_ALERT_BUTTON).click()
         alert_window = self.driver.switch_to.alert
         return alert_window.text
 
+    @allure.step('check alert appear after 5 sec')
     def check_alert_appear_5_sec(self) -> str:
         """Проверяем аллерт после 5 секунд."""
         self.element_is_visible(self.locators.APPEAR_ALERT_AFTER_5_SEC_BUTTON).click()
-        time.sleep(5)
+        time.sleep(6)
         alert_window = self.driver.switch_to.alert
         return alert_window.text
 
+    @allure.step('check confirm alert')
     def check_confirm_alert(self) -> str:
         """Проверяем аллерт после выбора."""
         self.element_is_visible(self.locators.CONFIRM_BOX_AFTER_BUTTON).click()
@@ -55,6 +62,7 @@ class AlertsPage(BasePage):
         alert_window.accept()
         return self.element_is_present(self.locators.CONFIRM_RESULT).text
 
+    @allure.step('check prompt alert')
     def check_prompt_alert(self) -> tuple:
         """Проверяем аллерт после ввода."""
         text = f'autotest{random.randint(1, 999)}'
@@ -71,6 +79,7 @@ class FramesPage(BasePage):
 
     locators = FramesPageLocators()
 
+    @allure.step('check frame')
     def check_frame(self, frame_num: str) -> list:
         """Проверяем фрейм."""
         if frame_num == 'frame1':
@@ -96,6 +105,7 @@ class NestedFramesPage(BasePage):
 
     locators = NestedFramesLocators()
 
+    @allure.step('check nested frame')
     def check_nested_frame(self) -> tuple:
         """Проверяем фрейм."""
         parent_frame = self.element_is_present(self.locators.PARENT_FRAME)
@@ -112,6 +122,7 @@ class ModalDialogPage(BasePage):
 
     locators = ModalDialogPageLocators()
 
+    @allure.step('check modal dialogs')
     def check_modal_dialogs(self) -> tuple:
         """Проверяем модальные окна."""
         self.element_is_visible(self.locators.SMALL_MODAL_BUTTON).click()

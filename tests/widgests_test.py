@@ -1,3 +1,5 @@
+import allure
+
 from pages.widgests_page import (
     AccordianPage,
     AutocompletePage,
@@ -14,12 +16,15 @@ import pytest
 from selenium import webdriver
 
 
+@allure.suite('Widgets')
 class TestWidgets:
     """Сьют - TestWidgets."""
 
+    @allure.feature('Accordian Page')
     class TestAccordian:
         """Тест - TestAccordian."""
 
+        @allure.title('Check accordian widget')
         def test_accordian(self, driver: webdriver):
             """Тест - test_accordian."""
             accordian = AccordianPage(driver, 'https://demoqa.com/accordian')
@@ -31,9 +36,11 @@ class TestWidgets:
             assert second_title == 'Where does it come from?' and second_content > 0
             assert third_title == 'Why do we use it?' and third_content > 0
 
+    @allure.feature('Autocomplete page')
     class TestAutocomplete:
         """Тест - TestAutoComplete."""
 
+        @allure.title('Check the autocomplete is filled')
         def test_fill_multi_autocomplete(self, driver: webdriver):
             """Тест - test_fill_multi_autocomplete."""
             autocomplete = AutocompletePage(driver, 'https://demoqa.com/auto-complete')
@@ -42,6 +49,7 @@ class TestWidgets:
             colors_result = autocomplete.check_color_in_multi()
             assert colors == colors_result
 
+        @allure.title('Check deletions from the multi autocomplete')
         def test_remove_value_from_multi(self, driver: webdriver):
             """Тест - test_remove_value_from_multi."""
             autocomplete = AutocompletePage(driver, 'https://demoqa.com/auto-complete')
@@ -50,6 +58,7 @@ class TestWidgets:
             count_value_before, count_value_after = autocomplete.remove_value_from_multi()
             assert count_value_before != count_value_after
 
+        @allure.title('Check deletions from the single autocomplete')
         def test_fill_single_autocomplete(self, driver: webdriver):
             """Тест - test_fill_single_autocomplete."""
             autocomplete = AutocompletePage(driver, 'https://demoqa.com/auto-complete')
@@ -58,9 +67,11 @@ class TestWidgets:
             color_result = autocomplete.check_color_in_single()
             assert color == color_result
 
+    @allure.feature('Date Picker Page')
     class TestDatePiker:
         """Тест - TestDatePiker."""
 
+        @allure.title('Check change date')
         def test_change_date(self, driver: webdriver):
             """Тест - test_fill_multi_autocomplete."""
             date_picker = DatePickerPage(driver, 'https://demoqa.com/date-picker')
@@ -68,18 +79,19 @@ class TestWidgets:
             value_date_before, value_date_after = date_picker.select_date()
             assert value_date_before != value_date_after
 
+        @allure.title('Check change date and time')
         def test_change_date_and_time(self, driver: webdriver):
             """Тест - test_fill_multi_autocomplete."""
             date_picker = DatePickerPage(driver, 'https://demoqa.com/date-picker')
             date_picker.open()
             value_date_before, value_date_after = date_picker.select_date_and_time()
-            print(value_date_before)
-            print(value_date_after)
             assert value_date_before != value_date_after
 
+    @allure.feature('Slider Page')
     class TestSlider:
         """Тест - TestSlider."""
 
+        @allure.title('Check moved slider')
         def test_slider(self, driver: webdriver):
             """Тест - test_slider."""
             slider = SliderPage(driver, 'https://demoqa.com/slider')
@@ -87,9 +99,11 @@ class TestWidgets:
             before, after = slider.change_slider_value()
             assert before != after
 
+    @allure.feature('Progress Bar Page')
     class TestProgressBar:
         """Тест - TestProgressBar."""
 
+        @allure.title('Check changed progress bar')
         def test_progress_bar(self, driver: webdriver):
             """Тест - test_progress_bar."""
             progress_bar = ProgressBarPage(driver, 'https://demoqa.com/progress-bar')
@@ -97,9 +111,11 @@ class TestWidgets:
             before, after = progress_bar.change_progress_bar_value()
             assert before != after
 
+    @allure.feature('Test Tabs Page')
     class TestTabs:
         """Тест - TestTabs."""
 
+        @allure.title('Check switched tabs')
         @pytest.mark.skip(reason='Баг - невозможно нажать на кнопку "More"')
         def test_tabs(self, driver: webdriver):
             """Тест - test_tabs."""
@@ -114,9 +130,11 @@ class TestWidgets:
             assert use_button == 'Use' and use_content != 0
             assert more_button == 'More' and more_content != 0
 
+    @allure.feature('Tool Tips')
     class TestToolTips:
         """Тест - TestTabs."""
 
+        @allure.title('Check tool tips')
         def test_tool_tips(self, driver: webdriver):
             """Тест - test_tool_tips."""
             tool_tips = ToolTipsPage(driver, 'https://demoqa.com/tool-tips')
@@ -127,9 +145,11 @@ class TestWidgets:
             assert contrary_text == 'You hovered over the Contrary'
             assert section_text == 'You hovered over the 1.10.32'
 
+    @allure.feature('Menu Page')
     class TestMenu:
         """Тест - TestTabs."""
 
+        @allure.title('Check all of the menu items')
         def test_menu(self, driver: webdriver):
             """Тест - test_tool_tips."""
             menu = MenuPage(driver, 'https://demoqa.com/menu')
