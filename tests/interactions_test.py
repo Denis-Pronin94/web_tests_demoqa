@@ -1,4 +1,10 @@
-from pages.interactions_page import DroppablePage, ResizablePage, SelectablePage, SortablePage
+from pages.interactions_page import (
+    DraggablePage,
+    DroppablePage,
+    ResizablePage,
+    SelectablePage,
+    SortablePage,
+)
 
 from selenium import webdriver
 
@@ -49,14 +55,14 @@ class TestInteractions:
         """Тест - TestDroppable."""
 
         def test_simple_droppable(self, driver: webdriver):
-            """Тест - test_sortable."""
+            """Тест - test_simple_droppable."""
             droppable = DroppablePage(driver, 'https://demoqa.com/droppable')
             droppable.open()
             text = droppable.drop_simple()
             assert text == 'Dropped!'
 
         def test_accept_droppable(self, driver: webdriver):
-            """Тест - test_sortable."""
+            """Тест - test_accept_droppable."""
             droppable = DroppablePage(driver, 'https://demoqa.com/droppable')
             droppable.open()
             not_accept, accept = droppable.drop_accept()
@@ -64,7 +70,7 @@ class TestInteractions:
             assert accept == 'Dropped!'
 
         def test_prevent_propogation_droppable(self, driver: webdriver):
-            """Тест - test_sortable."""
+            """Тест - test_prevent_propogation_droppable."""
             droppable = DroppablePage(driver, 'https://demoqa.com/droppable')
             droppable.open()
             not_greedy, not_greedy_inner, greedy, greedy_inner = \
@@ -75,7 +81,7 @@ class TestInteractions:
             assert greedy_inner == 'Dropped!'
 
         def test_revert_draggable_droppable(self, driver: webdriver):
-            """Тест - test_sortable."""
+            """Тест - test_revert_draggable_droppable."""
             droppable = DroppablePage(driver, 'https://demoqa.com/droppable')
             droppable.open()
             will_position_after_move, will_position_after_revert = \
@@ -84,3 +90,29 @@ class TestInteractions:
                 droppable.drop_revert_draggable('not_will')
             assert will_position_after_move != will_position_after_revert
             assert not_position_after_move == not_position_after_revert
+
+    class TestDraggable:
+        """Тест - TestDraggable."""
+
+        def test_simple_draggable(self, driver: webdriver):
+            """Тест - test_simple_draggable."""
+            draggable = DraggablePage(driver, 'https://demoqa.com/dragabble')
+            draggable.open()
+            before, after = draggable.simple_drag_box()
+            assert before != after
+
+        def test_axis_restricted_draggable(self, driver: webdriver):
+            """Тест - test_axis_restricted_draggable."""
+            draggable = DraggablePage(driver, 'https://demoqa.com/dragabble')
+            draggable.open()
+            draggable.axis_restricted_x()
+            top_x, left_x = draggable.axis_restricted_x()
+            top_y, left_y = draggable.axis_restricted_y()
+            print(top_x)
+            print(left_x)
+            print(top_y)
+            print(left_y)
+            assert top_x[0][0] == top_x[1][0] and int(top_x[1][0]) == 0
+            assert left_x[0][0] != left_x[1][0] and int(left_x[1][0]) != 0
+            assert top_y[0][0] != top_y[1][0] and int(top_y[1][0]) != 0
+            assert left_y[0][0] == left_y[1][0] and int(left_y[1][0]) == 0
