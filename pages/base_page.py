@@ -47,7 +47,7 @@ class BasePage:
 
     @allure.step('Find clickable elements')
     def element_is_clickable(self, locator: str, timeout: int = 5) -> wait.mro():
-        """Не видимые элементы."""
+        """Кликабельный элемент."""
         return wait(self.driver, timeout).until(EC.element_to_be_clickable(locator))
 
     @allure.step('Go to specified element')
