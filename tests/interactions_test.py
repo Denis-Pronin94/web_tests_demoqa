@@ -125,10 +125,6 @@ class TestInteractions:
             draggable.axis_restricted_x()
             top_x, left_x = draggable.axis_restricted_x()
             top_y, left_y = draggable.axis_restricted_y()
-            print(top_x)
-            print(left_x)
-            print(top_y)
-            print(left_y)
             assert top_x[0][0] == top_x[1][0] and int(top_x[1][0]) == 0
             assert left_x[0][0] != left_x[1][0] and int(left_x[1][0]) != 0
             assert top_y[0][0] != top_y[1][0] and int(top_y[1][0]) != 0
